@@ -1,0 +1,32 @@
+package com.example.expensemanager
+
+import android.content.Intent
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val preferences : SharedPreferences.Editor
+
+        preferences = getSharedPreferences("SharedPreferences", MODE_PRIVATE).edit()
+
+
+        val btn = findViewById<Button>(R.id.logout)
+
+        btn.setOnClickListener {
+            preferences.clear()
+            preferences.apply()
+            val intent = Intent(this@MainActivity, Login::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            finish()
+
+        }
+    }
+}
